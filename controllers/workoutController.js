@@ -31,7 +31,7 @@ router.get("/api/workouts", (req, res) => {
   });
 
 router.get("/api/workouts/range", (req, res) => {
-    db.Workout.find({})
+    db.Workout.find({}).limit(7)
       .then((foundRange) => {
         res.json(foundRange);
       })
@@ -63,7 +63,7 @@ router.get("/api/workouts/range", (req, res) => {
   
 
 router.put("/api/workouts/:id", (req, res) => {
-    db.Workout.findByIdAndUpdate(req.params.id, { $push: { exercises: req.body } }, req.body)
+    db.Workout.findByIdAndUpdate(req.params.id, { $push: { exercises: req.body } }, {new: true})
       .then((updatedWorkout) => {
         res.json(updatedWorkout);
       })
@@ -76,7 +76,7 @@ router.put("/api/workouts/:id", (req, res) => {
         });
       });
   });
-
+  // Not needed, but included anyway for full CRUD functionality.
   router.delete("/api/workouts/:id", (req, res) => {
     db.Workout.findByIdAndDelete(req.params.id, req.body)
       .then((deletedWorkout) => {
