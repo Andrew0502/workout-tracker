@@ -1,10 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+const db = require("./models");
 const PORT = process.env.PORT || 3000;
 
-// const ingredientsController = require("./controllers/ingredientsController");
-// const pizzaController = require("./controllers/pizzaController")
+const workoutController = require("./controllers/workoutController");
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
@@ -36,8 +36,7 @@ app.get("/api/config", (req, res) => {
   });
 });
 
-// app.use(ingredientsController);
-// app.use(pizzaController);
+app.use(workoutController);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
